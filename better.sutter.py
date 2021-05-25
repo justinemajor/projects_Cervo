@@ -132,25 +132,19 @@ if __name__ == "__main__":
             raise "EOT"
         z = 0
         if i % 2 == 0:
-            for ii in range(nbDonnees+1):
-                x = ii*25000/nbDonnees
-                if x > 25000:
-                    device.port.close()
-                    raise "EOT"
-                device.moveTo((x, y, z))
-                device.port.read(1)
-                print(f'({x}, {y}, {z})')
-                time.sleep(2)
+            lign = range(nbDonnees+1)
         else:
-           for ii in range(nbDonnees,-1,-1):
-                x = ii*25000/nbDonnees
-                if x > 25000:
-                    device.port.close()
-                    raise "EOT"
-                device.moveTo((x, y, z))
-                device.port.read(1)
-                print(f'({x}, {y}, {z})')
-                time.sleep(2)
+            lign = range(nbDonnees,-1,-1)
+      
+        for ii in lign:
+            x = ii*25000/nbDonnees
+            if x > 25000:
+                device.port.close()
+                raise "EOT"
+            device.moveTo((x, y, z))
+            device.port.read(1)
+            print(f'({x}, {y}, {z})')
+            time.sleep(2)
         """
         sendBytes = pack('<cc', b'C', b'\r')
         device.port.write(sendBytes)
