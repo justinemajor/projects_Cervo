@@ -3,7 +3,6 @@ import sys
 import serial
 from serial.tools.list_ports import comports
 #sys.path.insert(0, "/Users/justinemajor/Documents/gph.doc/git/PyHardwareLibrary/hardwarelibrary/communication")
-#from serialport import SerialPort
 import time
 import array
 import os
@@ -124,9 +123,6 @@ class SutterDevice:
 
 if __name__ == "__main__":
     device = SutterDevice()
-
-    #device.moveTo((16000, 16000, 16000))
-    #print(device.position())
 
     for i in range(6):
         y = i*5000
