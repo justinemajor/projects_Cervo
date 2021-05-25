@@ -27,14 +27,18 @@ class SutterDevice:
         We do a late initialization: if the device is not present at creation, it can still be
         initialized later.
         """
-        pass
+        if self.port is not None:
+            return
+        
+        self.port = serial.Serial("/dev/cu.usbserial-SI8YCLBE", timeout=5, baudrate=128000) 
+        if self.port is None:
+            raise IOError("Can't find Sutter device")
 
     def shutdownDevice(self):
         """
         If the device fails, we shut everything down. We should probably flush the buffers also.
         """
-        
-        self.port = None
+        self.port.close()
 
     def sendCommand(self, commandBytes):
         """ The function to write a command to the endpoint. It will initialize the device 
@@ -72,15 +76,15 @@ class SutterDevice:
     def positionInMicrosteps(self) -> (int,int,int):
         """ Returns the position in microsteps """
         commandBytes = pack('<cc', b'C', b'\r')
-        self.port.write(commandBytes)
+        self.sendCommand(commandBytes)
         return self.readReply(size=13, format='<clll')[1:]
 
     def moveInMicrostepsTo(self, position):
         """ Move to a position in microsteps """
         x,y,z  = position
         commandBytes = pack('<clllc', b'M', int(x), int(y), int(z), b'\r')
-        self.port.write(commandBytes)
-        self.readReply(size=1, format='<c')
+        self.sendCommand(commandBytes)
+        #self.readReply(size=1, format='<c')
     
     def position(self) -> (float, float, float):
         """ Returns the position in microns """
@@ -119,6 +123,6 @@ class SutterDevice:
 if __name__ == "__main__":
     device = SutterDevice()
 
-    #device.moveTo((0, 0, 0))
-    device.moveBy((10, 0, 10))
-    print(device.position())
+    #device.moveTo((1000, 1000, 1000))
+    device.moveBy((1000, 1000, 1000))
+    #print(device.position())
