@@ -84,7 +84,7 @@ class SutterDevice:
         x,y,z  = position
         commandBytes = pack('<clllc', b'M', int(x), int(y), int(z), b'\r')
         self.sendCommand(commandBytes)
-        self.readReply(size=1, format='<c')
+        #self.readReply(size=1, format='<c')
     
     def position(self) -> (float, float, float):
         """ Returns the position in microns """
@@ -110,7 +110,7 @@ class SutterDevice:
 
     """
     def moveBy(self, delta) -> bool:
-        """ Move by a delta displacement (dx, dy, dz) from current position in microns """
+        #Move by a delta displacement (dx, dy, dz) from current position in microns
         #if not self.port.is_open:
             #self.port.open()
         dx,dy,dz  = delta
@@ -125,5 +125,38 @@ class SutterDevice:
 if __name__ == "__main__":
     device = SutterDevice()
 
-    device.moveTo((16000, 16000, 16000))
+    #device.moveTo((16000, 16000, 16000))
     #print(device.position())
+
+    for i in range(6):
+        y = i*5000
+        if y > 25000:
+            device.port.close()
+            raise "EOT"
+        z = 0
+        if i % 2 == 0:
+            for ii in range(6):
+                x = ii*5000
+                if y > 25000:
+                    device.port.close()
+                    raise "EOT"
+                device.moveTo((x, y, z))
+                device.port.read(1)
+                print(f'({x}, {y}, {z})')
+                time.sleep(1)
+        else:
+           for ii in range(6-1,0-1,-1):
+                x = ii*5000
+                device.moveTo((x, y, z))
+                device.port.read(1)
+                print(f'({x}, {y}, {z})')
+                time.sleep(1)
+        """
+        sendBytes = pack('<cc', b'C', b'\r')
+        device.port.write(sendBytes)
+        replyBytes = device.port.read(15)
+        print(replyBytes)
+        theTuple = unpack('<cclllc', replyBytes)
+        print(theTuple[1:])
+        """
+
