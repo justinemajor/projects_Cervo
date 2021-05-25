@@ -123,16 +123,17 @@ class SutterDevice:
 
 if __name__ == "__main__":
     device = SutterDevice()
+    nbDonnees = 5
 
-    for i in range(6):
-        y = i*5000
+    for i in range(nbDonnees+1):
+        y = i*25000/nbDonnees
         if y > 25000:
             device.port.close()
             raise "EOT"
         z = 0
         if i % 2 == 0:
-            for ii in range(6):
-                x = ii*5000
+            for ii in range(nbDonnees+1):
+                x = ii*25000/nbDonnees
                 if y > 25000:
                     device.port.close()
                     raise "EOT"
@@ -141,8 +142,8 @@ if __name__ == "__main__":
                 print(f'({x}, {y}, {z})')
                 time.sleep(1)
         else:
-           for ii in range(6-1,0-1,-1):
-                x = ii*5000
+           for ii in range(nbDonnees,-1,-1):
+                x = ii*25000/nbDonnees
                 device.moveTo((x, y, z))
                 device.port.read(1)
                 print(f'({x}, {y}, {z})')
