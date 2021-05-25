@@ -108,6 +108,7 @@ class SutterDevice:
         self.moveInMicrostepsTo(positionInMicrosteps)
         #self.port.close()
 
+    """
     def moveBy(self, delta) -> bool:
         """ Move by a delta displacement (dx, dy, dz) from current position in microns """
         #if not self.port.is_open:
@@ -118,11 +119,11 @@ class SutterDevice:
             x,y,z = position
             self.moveTo((x+dx, y+dy, z+dz))
         #self.port.close()
+    """
 
 
 if __name__ == "__main__":
     device = SutterDevice()
 
-    device.moveTo((1000, 1000, 1000))
-    #device.moveBy((1000, 1000, 1000))
+    device.moveTo((16000, 16000, 16000))
     #print(device.position())
