@@ -63,7 +63,7 @@ class SutterDevice:
                 self.initializeDevice()
 
             replyBytes = self.port.read(size)
-            print(replyBytes)
+            #print(replyBytes)
             theTuple = unpack(format, replyBytes)
             #print(theTuple)
             return theTuple
