@@ -123,7 +123,7 @@ class SutterDevice:
 
 if __name__ == "__main__":
     device = SutterDevice()
-    nbDonnees = 5
+    nbDonnees = 4
 
     for i in range(nbDonnees+1):
         y = i*25000/nbDonnees
@@ -134,20 +134,23 @@ if __name__ == "__main__":
         if i % 2 == 0:
             for ii in range(nbDonnees+1):
                 x = ii*25000/nbDonnees
-                if y > 25000:
+                if x > 25000:
                     device.port.close()
                     raise "EOT"
                 device.moveTo((x, y, z))
                 device.port.read(1)
                 print(f'({x}, {y}, {z})')
-                time.sleep(1)
+                time.sleep(2)
         else:
            for ii in range(nbDonnees,-1,-1):
                 x = ii*25000/nbDonnees
+                if x > 25000:
+                    device.port.close()
+                    raise "EOT"
                 device.moveTo((x, y, z))
                 device.port.read(1)
                 print(f'({x}, {y}, {z})')
-                time.sleep(1)
+                time.sleep(2)
         """
         sendBytes = pack('<cc', b'C', b'\r')
         device.port.write(sendBytes)
@@ -156,4 +159,3 @@ if __name__ == "__main__":
         theTuple = unpack('<cclllc', replyBytes)
         print(theTuple[1:])
         """
-
