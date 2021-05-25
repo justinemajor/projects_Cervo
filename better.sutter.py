@@ -65,7 +65,7 @@ class SutterDevice:
             replyBytes = self.port.read(size)
             print(replyBytes)
             theTuple = unpack(format, replyBytes)
-            print(theTuple)
+            #print(theTuple)
             return theTuple
 
         except Exception as err:
@@ -84,7 +84,7 @@ class SutterDevice:
         x,y,z  = position
         commandBytes = pack('<clllc', b'M', int(x), int(y), int(z), b'\r')
         self.sendCommand(commandBytes)
-        #self.readReply(size=1, format='<c')
+        self.readReply(size=1, format='<c')
     
     def position(self) -> (float, float, float):
         """ Returns the position in microns """
@@ -123,6 +123,6 @@ class SutterDevice:
 if __name__ == "__main__":
     device = SutterDevice()
 
-    #device.moveTo((1000, 1000, 1000))
-    device.moveBy((1000, 1000, 1000))
+    device.moveTo((1000, 1000, 1000))
+    #device.moveBy((1000, 1000, 1000))
     #print(device.position())
