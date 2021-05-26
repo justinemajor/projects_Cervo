@@ -62,10 +62,9 @@ class SutterDevice:
                 self.initializeDevice()
 
             replyBytes = self.port.read(size)
-            #print(replyBytes)
-            theTuple = unpack(format, replyBytes)
-            #print(theTuple)
-            return theTuple
+            if len(replyBytes) == size:
+                theTuple = unpack(format, replyBytes)
+                return theTuple
 
         except Exception as err:
             print('Error when reading reply: {0}'.format(err))
@@ -76,7 +75,7 @@ class SutterDevice:
         """ Returns the position in microsteps """
         commandBytes = pack('<cc', b'C', b'\r')
         self.sendCommand(commandBytes)
-        return self.readReply(size=13, format='<clll')[1:]
+        return self.readReply(size=14, format='<clllc')[1:-1]
 
     def moveInMicrostepsTo(self, position):
         """ Move to a position in microsteps """
@@ -107,7 +106,6 @@ class SutterDevice:
         self.moveInMicrostepsTo(positionInMicrosteps)
         #self.port.close()
 
-    """
     def moveBy(self, delta) -> bool:
         #Move by a delta displacement (dx, dy, dz) from current position in microns
         #if not self.port.is_open:
@@ -118,38 +116,28 @@ class SutterDevice:
             x,y,z = position
             self.moveTo((x+dx, y+dy, z+dz))
         #self.port.close()
-    """
 
 
 if __name__ == "__main__":
     device = SutterDevice()
-    nbDonnees = 4
+    nbDonnees = 5
 
     for i in range(nbDonnees+1):
-        y = i*25000/nbDonnees
-        if y > 25000:
-            device.port.close()
-            raise "EOT"
-        z = 0
-        if i % 2 == 0:
-            lign = range(nbDonnees+1)
-        else:
-            lign = range(nbDonnees,-1,-1)
-      
-        for ii in lign:
-            x = ii*25000/nbDonnees
-            if x > 25000:
-                device.port.close()
-                raise "EOT"
-            device.moveTo((x, y, z))
+        if i == 0:
+            commandBytes = pack('<cc', b'H', b'\r')
+            device.port.write(commandBytes)
             device.port.read(1)
-            print(f'({x}, {y}, {z})')
-            time.sleep(2)
-        """
-        sendBytes = pack('<cc', b'C', b'\r')
-        device.port.write(sendBytes)
-        replyBytes = device.port.read(15)
-        print(replyBytes)
-        theTuple = unpack('<cclllc', replyBytes)
-        print(theTuple[1:])
-        """
+            print(device.position())
+            time.sleep(1)
+        if i % 2 == 0:
+            fac = 1
+        else:
+            fac = -1
+        for ii in range(nbDonnees+1):
+            if ii != nbDonnees:
+                device.moveBy((50*fac, 0, 0))
+            else:
+                device.moveBy((0, 50, 0))
+            device.port.read(1)
+            print(device.position())
+            time.sleep(1)
