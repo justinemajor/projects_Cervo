@@ -121,10 +121,16 @@ class SutterDevice:
 if __name__ == "__main__":
     device = SutterDevice()
     nbDonnees = 5
+    dist = 50
 
     for i in range(nbDonnees+1):
         if i == 0:
+            #Move to home position before moving to work position
             commandBytes = pack('<cc', b'H', b'\r')
+            device.port.write(commandBytes)
+            device.port.read(1)
+            #move to work position
+            commandBytes = pack('<cc', b'Y', b'\r')
             device.port.write(commandBytes)
             device.port.read(1)
             print(device.position())
@@ -135,9 +141,9 @@ if __name__ == "__main__":
             fac = -1
         for ii in range(nbDonnees+1):
             if ii != nbDonnees:
-                device.moveBy((50*fac, 0, 0))
+                device.moveBy((dist*fac, 0, 0))
             else:
-                device.moveBy((0, 50, 0))
+                device.moveBy((0, dist, 0))
             device.port.read(1)
             print(device.position())
             time.sleep(1)
