@@ -121,7 +121,7 @@ class SutterDevice:
 if __name__ == "__main__":
     device = SutterDevice()
     nbDonnees = 5
-    dist = 50
+    dist = 1000
 
     for i in range(nbDonnees+1):
         if i == 0:
