@@ -18,8 +18,7 @@ def getFilePaths(directory: str, fileNames: list) -> list:
     return filesWithFullPath
 
 path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres"
-donnees_tot_x = []
-donnees_tot_y = {}
+donnees_tot_x, donnees_tot_y = [], {}
 nb = len(listNameOfFiles(path))
 
 for nom in listNameOfFiles(path):
@@ -27,8 +26,7 @@ for nom in listNameOfFiles(path):
     fich = open(path + '/' + nom, "r")
     test_str = list(fich)[14:]
     fich.close()
-    x = []
-    y = []
+    x, y = [], []
     # Nettoyer les informations
     for j in test_str:
         elem_str = j.replace(",", ".").replace("\n", "").replace("\t", ",")
