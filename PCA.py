@@ -8,6 +8,7 @@ from sklearn.decomposition import PCA, SparsePCA
 import numpy as np
 import matplotlib.pyplot as plt
 
+#lire les données
 def listNameOfFiles(directory: str, extension="txt") -> list:
     foundFiles = []
     for file in os.listdir(directory):
@@ -42,6 +43,7 @@ for nom in listNameOfFiles(path):
     ordo.append(y)
     donnees_tot_y[nom] = y
 
+#imprimer les spectres
 fig2, ax2 = plt.subplots()
 ax2.plot(donnees_tot_x, ordo[0], '#e377c2')
 plt.xlabel('Wavenumber')      # titre des abscisses
@@ -66,25 +68,21 @@ plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 2') # titre du graphique
 
-"""
-fig5, ax5 = plt.subplots()
-ax5.plot(donnees_tot_x, ordo[13], '#e377c2')
-plt.xlabel('Wavenumber')      # titre des abscisses
-plt.ylabel('Intensité')      # titre des ordonnées
-plt.title('Spectres RAMAN tous') # titre du graphique
-"""
-
+#méthode d'analyse par les composantes principales
 pca = PCA(n_components=5)
 principalComponents = pca.fit_transform(ordo)
 principalDf = pd.DataFrame(data = principalComponents, columns = ['principal component 1', 'principal component 2', 'principal component 3', 'principal component 4', 'principal component 5'])
+
+#Tableau des coefficients
 print(principalDf)
-#print(StandardScaler().fit_transform(principalDf))
-#print(listNameOfFiles(path).index("0100_10.txt"))
-#print(listNameOfFiles(path)[4:6])
-#print(pca.components_.transpose())
+
+#Importance de chaque composante principale trouvée
 print(pca.explained_variance_ratio_)
+
+#Total de la variance expliquée par l'utilisation d'un nombre limité de composantes
 print(sum(pca.explained_variance_ratio_))
 
+#vecteurs de base formés des vecteurs propres (composantes principales)
 PC1 = pca.components_[0]
 PC2 = pca.components_[1]
 PC3 = pca.components_[2]
@@ -101,6 +99,7 @@ for i in range(4):
     for ii in range(5):
         liste[i] += principalComponents[index[i]][ii]*PC[ii]
 
+#Imprimer les spectres des composantes principales obtenues
 fig6, ax6 = plt.subplots()
 ax6.plot(donnees_tot_x, PC1*principalComponents[3][0], '#17becf')
 plt.xlabel('Wavenumber')      # titre des abscisses
@@ -119,14 +118,6 @@ plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN PC3') # titre du graphique
 
-"""
-fig9, ax9 = plt.subplots()
-ax9.plot(donnees_tot_x, PC4, 'r-')
-plt.xlabel('Wavenumber')      # titre des abscisses
-plt.ylabel('Intensité')      # titre des ordonnées
-plt.title('Spectres RAMAN PC4') # titre du graphique
-"""
-
 fig10, ax10 = plt.subplots()
 ax10.plot(donnees_tot_x, PC5*principalComponents[1][4], 'r-')
 plt.xlabel('Wavenumber')      # titre des abscisses
@@ -134,12 +125,3 @@ plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN PC4') # titre du graphique
 
 plt.show()
-
-"""
-print(PCA(ordo, 4))
-print(listNameOfFiles(path).index("0001_10.txt"))
-print(listNameOfFiles(path).index("0010_10.txt"))
-print(listNameOfFiles(path).index("0100_10.txt"))
-print(listNameOfFiles(path).index("1000_10.txt"))
-print(PCA(ordo, 4)[7])
-"""
