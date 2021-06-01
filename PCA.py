@@ -48,20 +48,20 @@ plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 1') # titre du graphique
 
-#fig3, ax3 = plt.subplots()
-ax2.plot(donnees_tot_x, ordo[3], '#17becf')
+fig3, ax3 = plt.subplots()
+ax3.plot(donnees_tot_x, ordo[3], '#17becf')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 3') # titre du graphique
 
-#fig4, ax4 = plt.subplots()
-ax2.plot(donnees_tot_x, ordo[7], 'b-')
+fig4, ax4 = plt.subplots()
+ax4.plot(donnees_tot_x, ordo[7], 'b-')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 4') # titre du graphique
 
-#fig1, ax1 = plt.subplots()
-ax2.plot(donnees_tot_x, ordo[1], 'r-')
+fig1, ax1 = plt.subplots()
+ax1.plot(donnees_tot_x, ordo[1], 'r-')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 2') # titre du graphique
@@ -127,12 +127,11 @@ plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN PC4') # titre du graphique
 """
 
-
 fig10, ax10 = plt.subplots()
 ax10.plot(donnees_tot_x, PC5*principalComponents[1][4], 'r-')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
-plt.title('Spectres RAMAN PC5') # titre du graphique
+plt.title('Spectres RAMAN PC4') # titre du graphique
 
 plt.show()
 
