@@ -44,25 +44,25 @@ for nom in listNameOfFiles(path):
     donnees_tot_y[nom] = y
 
 #imprimer les spectres
-fig2, ax2 = plt.subplots()
+fig2, (ax1, ax2, ax3, ax4, ax7, ax6, ax8, ax10) = plt.subplots(8)
 ax2.plot(donnees_tot_x, ordo[0], '#e377c2')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 1') # titre du graphique
 
-fig3, ax3 = plt.subplots()
+#fig3, ax3 = plt.subplots()
 ax3.plot(donnees_tot_x, ordo[3], '#17becf')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 3') # titre du graphique
 
-fig4, ax4 = plt.subplots()
+#fig4, ax4 = plt.subplots()
 ax4.plot(donnees_tot_x, ordo[7], 'b-')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN 4') # titre du graphique
 
-fig1, ax1 = plt.subplots()
+#fig1, ax1 = plt.subplots()
 ax1.plot(donnees_tot_x, ordo[1], 'r-')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
@@ -99,27 +99,33 @@ for i in range(4):
     for ii in range(5):
         liste[i] += principalComponents[index[i]][ii]*PC[ii]
 
+#ou principalComponents@...
+
 #Imprimer les spectres des composantes principales obtenues
-fig6, ax6 = plt.subplots()
-ax6.plot(donnees_tot_x, PC1*principalComponents[3][0], '#17becf')
+#fig6, ax6 = plt.subplots()
+#ax6.plot(donnees_tot_x, PC1*principalComponents[3][0], '#17becf')
+ax6.plot(donnees_tot_x, C1, '#17becf')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN PC1') # titre du graphique
 
-fig7, ax7 = plt.subplots()
-ax7.plot(donnees_tot_x, PC2*principalComponents[0][1], "#e377c2")
+#fig7, ax7 = plt.subplots()
+#ax7.plot(donnees_tot_x, PC2*principalComponents[0][1], "#e377c2")
+ax7.plot(donnees_tot_x, C2, "#e377c2")
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN PC2') # titre du graphique
 
-fig8, ax8 = plt.subplots()
-ax8.plot(donnees_tot_x, PC3*principalComponents[7][2]+PC4*principalComponents[7][3], "b-")
+#fig8, ax8 = plt.subplots()
+#ax8.plot(donnees_tot_x, PC3*principalComponents[7][2]+PC4*principalComponents[7][3], "b-")
+ax8.plot(donnees_tot_x, C3, "b-")
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN PC3') # titre du graphique
 
-fig10, ax10 = plt.subplots()
-ax10.plot(donnees_tot_x, PC5*principalComponents[1][4], 'r-')
+#fig10, ax10 = plt.subplots()
+#ax10.plot(donnees_tot_x, PC5*principalComponents[1][4], 'r-')
+ax10.plot(donnees_tot_x, C4, 'r-')
 plt.xlabel('Wavenumber')      # titre des abscisses
 plt.ylabel('Intensité')      # titre des ordonnées
 plt.title('Spectres RAMAN PC4') # titre du graphique
