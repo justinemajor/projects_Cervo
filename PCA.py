@@ -4,7 +4,7 @@ import csv
 import os
 import fnmatch
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA, SparsePCA
+from sklearn.decomposition import PCA
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -81,6 +81,7 @@ print(sum(pca.explained_variance_ratio_))
 
 #vecteurs de base formés des vecteurs singuliers (composantes principales)
 PC = principalCoefficients@pca.components_ + pca.mean_
+#PC = pca.components_
 
 PC1 = PC[0]
 PC2 = PC[1]
@@ -125,3 +126,6 @@ ax10.legend() # titre du graphique
 
 plt.tight_layout()
 plt.show()
+
+
+
