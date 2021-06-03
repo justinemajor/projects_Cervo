@@ -53,7 +53,7 @@ pca = PCA(n_components=5)
 principalCoefficients = pca.fit_transform(ordo)
 
 # Définir la fonction ainsi que ses paramètres
-def fonction(X, a, b, c, d):#, e):
+def fonction(X, a, b, c, d, e):
     return a*pca.components_[0]+b*pca.components_[1]+c*pca.components_[2]+d*pca.components_[3]+e*pca.components_[4]
     #return a*ordo[0]+b*ordo[1]+c*ordo[3]+d*ordo[7]
 
