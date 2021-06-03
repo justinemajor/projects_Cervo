@@ -53,25 +53,31 @@ pca = PCA(n_components=5)
 principalCoefficients = pca.fit_transform(ordo)
 
 # Définir la fonction ainsi que ses paramètres
-def fonction(X, a, b, c, d, e):
+def fonction(X, a, b, c, d):#, e):
     return a*pca.components_[0]+b*pca.components_[1]+c*pca.components_[2]+d*pca.components_[3]+e*pca.components_[4]
+    #return a*ordo[0]+b*ordo[1]+c*ordo[3]+d*ordo[7]
 
 coef = []
 for i in range(nb):
     popt = []
     pcov = []
-    popt, pcov = curve_fit(fonction, donnees_tot_x, ordo[i], p0=[1000, 1000, 1000, 1000, 1000])
+    popt, pcov = curve_fit(fonction, donnees_tot_x, ordo[i], p0=[1, 1, 1, 1, 1])
     coef.append(popt)
 
 coef = np.array(coef)
+
+"""
+tot = sum(coef[13])
+print(coef[13]/tot)
+"""
 
 sp = coef@pca.components_
 
 # Afficher les données et le curvefit
 fig1, ax1 = mpl.subplots()          # Figure 1
-ax1.plot(donnees_tot_x, ordo[5], 'r')                 # Données
+ax1.plot(donnees_tot_x, ordo[13], 'r')                 # Données
 
-ax1.plot(donnees_tot_x, sp[5], 'b')        # Curvefit
+ax1.plot(donnees_tot_x, sp[13], 'b')        # Curvefit #fonction(donnees_tot_x, *coef[13])
 ax1.set_xlabel("x") # Titre des abscisses
 ax1.set_ylabel("y") # Titre des ordonnées
 ax1.set_title("Curvefit d'un spectre")      # Titre du graphique
