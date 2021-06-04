@@ -54,22 +54,22 @@ pca = PCA(n_components=5)
 principalCoefficients = pca.fit_transform(ordo)
 
 # Définir la fonction ainsi que ses paramètres
-def fonction(X, a, b, c, d, e):
-    return a*pca.components_[0]+b*pca.components_[1]+c*pca.components_[2]+d*pca.components_[3]+e*pca.components_[4]
-    #return a*ordo[0]+b*ordo[1]+c*ordo[3]+d*ordo[7]
+def fonction(X, a, b, c, d):#, e):
+    #return a*pca.components_[0]+b*pca.components_[1]+c*pca.components_[2]+d*pca.components_[3]+e*pca.components_[4]
+    return a*ordo[0]+b*ordo[1]+c*ordo[3]+d*ordo[7]
 
 #Matrice des coefficients
 coef = []
 for i in range(nb):
     popt = []
     pcov = []
-    popt, pcov = curve_fit(fonction, donnees_tot_x, ordo[i], p0=[1, 1, 1, 1, 1])
+    popt, pcov = curve_fit(fonction, donnees_tot_x, ordo[i], p0=[1, 1, 1, 1])#, 1])
     coef.append(popt)
 
 coef = np.array(coef)
 
 #choisir le spectre à afficher
-num = 10
+num = 11
 
 """
 tot = sum(coef[num])
@@ -84,22 +84,23 @@ for i in range(len(coef)):
     prop.append(coef[i]/tot)
 
 prop = np.array(prop)
-principalDf = pd.DataFrame(data = prop, columns = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5'])
+principalDf = pd.DataFrame(data = prop, columns = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4'])#, 'Concentration 5'])
 
 #Tableau des concentrations
 print(principalDf)
 
 #reconstruction des spectres avec les vecteurs singuliers
-sp = coef@pca.components_
+#sp = coef@pca.components_
 
 # Afficher les données et le curvefit
 fig1, ax1 = mpl.subplots()          # Figure 1
-ax1.plot(donnees_tot_x, ordo[num], 'r')                 # Données
+ax1.plot(donnees_tot_x, ordo[num], 'r', label='Données brutes')                 # Données
 
-ax1.plot(donnees_tot_x, sp[num], 'b')        # Curvefit #fonction(donnees_tot_x, *coef[num])
+ax1.plot(donnees_tot_x, fonction(donnees_tot_x, *coef[num]), 'b', label='Données fittées')        # Curvefit #sp[num]
 ax1.set_xlabel("x") # Titre des abscisses
 ax1.set_ylabel("y") # Titre des ordonnées
 ax1.set_title("Curvefit d'un spectre")      # Titre du graphique
+ax1.legend()
 
 # Afficher la figure
 mpl.show()
