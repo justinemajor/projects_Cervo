@@ -65,19 +65,21 @@ for i in range(nb):
     coef.append(popt)
 
 coef = np.array(coef)
+num = 10
 
 """
-tot = sum(coef[13])
-print(coef[13]/tot)
+tot = sum(coef[num])
+print(coef[num]/tot)
+print(listNameOfFiles(path)[num])
 """
 
 sp = coef@pca.components_
 
 # Afficher les données et le curvefit
 fig1, ax1 = mpl.subplots()          # Figure 1
-ax1.plot(donnees_tot_x, ordo[13], 'r')                 # Données
+ax1.plot(donnees_tot_x, ordo[num], 'r')                 # Données
 
-ax1.plot(donnees_tot_x, sp[13], 'b')        # Curvefit #fonction(donnees_tot_x, *coef[13])
+ax1.plot(donnees_tot_x, sp[num], 'b')        # Curvefit #fonction(donnees_tot_x, *coef[num])
 ax1.set_xlabel("x") # Titre des abscisses
 ax1.set_ylabel("y") # Titre des ordonnées
 ax1.set_title("Curvefit d'un spectre")      # Titre du graphique
