@@ -49,6 +49,7 @@ for nom in listNameOfFiles(path):
 
 ordo = np.array(ordo)
 
+#Méthode d'analyse par composantes principales
 pca = PCA(n_components=5)
 principalCoefficients = pca.fit_transform(ordo)
 
@@ -57,6 +58,7 @@ def fonction(X, a, b, c, d, e):
     return a*pca.components_[0]+b*pca.components_[1]+c*pca.components_[2]+d*pca.components_[3]+e*pca.components_[4]
     #return a*ordo[0]+b*ordo[1]+c*ordo[3]+d*ordo[7]
 
+#Matrice des coefficients
 coef = []
 for i in range(nb):
     popt = []
@@ -65,6 +67,8 @@ for i in range(nb):
     coef.append(popt)
 
 coef = np.array(coef)
+
+#choisir le spectre à afficher
 num = 10
 
 """
@@ -73,6 +77,19 @@ print(coef[num]/tot)
 print(listNameOfFiles(path)[num])
 """
 
+#Calculer les concentrations de chaque composante principale
+prop = []
+for i in range(len(coef)):
+    tot = sum(coef[i])
+    prop.append(coef[i]/tot)
+
+prop = np.array(prop)
+principalDf = pd.DataFrame(data = prop, columns = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5'])
+
+#Tableau des concentrations
+print(principalDf)
+
+#reconstruction des spectres avec les vecteurs singuliers
 sp = coef@pca.components_
 
 # Afficher les données et le curvefit
