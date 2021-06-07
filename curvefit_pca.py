@@ -11,6 +11,7 @@ import os
 import fnmatch
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from tkinter import *
 
 #lire les données
 def listNameOfFiles(directory: str, extension="txt") -> list:
@@ -26,7 +27,28 @@ def getFilePaths(directory: str, fileNames: list) -> list:
         filesWithFullPath.append(directory+"/"+fileName)
     return filesWithFullPath
 
-path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/10"
+#Choisir la résolution étudiée et le type d'analyse
+print("Choisissez la résolution des spectres à étudier (temps d'intégration de 01 ou 10)")
+res = str(input())
+if res not in ['01', '10']:
+    raise Error('Choisir entre 01 et 10.')
+
+print("Choisir le type d'analyse (exp ou pca)")
+analyse = str(input())
+if analyse not in ['exp', 'pca']:
+    raise Error("Choisir entre exp (pour la proportion des spectres expérimentaux de base) ou pca (pour l'utilisation des vecteurs singuliers)")
+
+#choisir le spectre à afficher
+print("Choisissez le numéro de spectre à imprimer")
+num = int(input())
+if res == '01':
+    if num >= 13 or num < 0:
+        raise Error("L'indice du spectre n'existe pas.")
+if res == '10':
+    if num >= 14 or num < 0:
+        raise Error("L'indice du spectre n'existe pas.")
+
+path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/" + res
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
@@ -48,28 +70,45 @@ for nom in listNameOfFiles(path):
     donnees_tot_y[nom] = y
 
 ordo = np.array(ordo)
+pca = np.array([])
+col = []
+p = []
+print(analyse)
 
-#Méthode d'analyse par composantes principales
-pca = PCA(n_components=5)
+#Méthode d'analyse par composantes principales et définir la fonction ainsi que ses paramètres
+if analyse == 'exp':
+    print('hello')
+    pca = PCA(n_components=4)
+    col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4']
+    p = [1, 1, 1, 1]
+    def fonction(X, a, b, c, d):
+        i1 = listNameOfFiles(path).index(f'0001_{res}.txt')
+        i2 = listNameOfFiles(path).index(f'0010_{res}.txt')
+        i3 = listNameOfFiles(path).index(f'0100_{res}.txt')
+        i4 = listNameOfFiles(path).index(f'1000_{res}.txt')
+        return a*ordo[i1]+b*ordo[i2]+c*ordo[i3]+d*ordo[i4]
+
+elif analyse == 'pca':
+    pca = PCA(n_components=5)
+    col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5']
+    p = [1, 1, 1, 1, 1]
+    def fonction(X, a, b, c, d, e):
+        return a*pca.components_[0]+b*pca.components_[1]+c*pca.components_[2]+d*pca.components_[3]+e*pca.components_[4]
+
+else :
+    raise TypeError("La méthode d'analyse n'est pas reconnue")
+
 principalCoefficients = pca.fit_transform(ordo)
-
-# Définir la fonction ainsi que ses paramètres
-def fonction(X, a, b, c, d):#, e):
-    #return a*pca.components_[0]+b*pca.components_[1]+c*pca.components_[2]+d*pca.components_[3]+e*pca.components_[4]
-    return a*ordo[0]+b*ordo[1]+c*ordo[3]+d*ordo[7]
 
 #Matrice des coefficients
 coef = []
 for i in range(nb):
     popt = []
     pcov = []
-    popt, pcov = curve_fit(fonction, donnees_tot_x, ordo[i], p0=[1, 1, 1, 1])#, 1])
+    popt, pcov = curve_fit(fonction, donnees_tot_x, ordo[i], p0=p)
     coef.append(popt)
 
 coef = np.array(coef)
-
-#choisir le spectre à afficher
-num = 11
 
 """
 tot = sum(coef[num])
@@ -81,13 +120,19 @@ print(listNameOfFiles(path)[num])
 prop = []
 for i in range(len(coef)):
     tot = sum(coef[i])
-    prop.append(coef[i]/tot)
+    totr = []
+    for it in range(len(coef[i])):
+        totr.append(round(coef[i][it]/tot, 3))
+    prop.append(totr)
 
 prop = np.array(prop)
-principalDf = pd.DataFrame(data = prop, columns = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4'])#, 'Concentration 5'])
+principalDf = pd.DataFrame(data = prop, columns = col)
 
 #Tableau des concentrations
 print(principalDf)
+
+elements = pd.DataFrame(data = listNameOfFiles(path), columns=['Solutions'])
+print(elements)
 
 #reconstruction des spectres avec les vecteurs singuliers
 #sp = coef@pca.components_
