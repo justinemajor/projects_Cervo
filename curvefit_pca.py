@@ -127,10 +127,8 @@ names = np.array([listNameOfFiles(path)])
 gen = np.hstack((names.transpose(), prop))
 principalDf = pd.DataFrame(data = gen, columns = ['Solutions']+col)
 
-#Tableaux des concentrations et des fichiers
-elements = pd.DataFrame(data = listNameOfFiles(path), columns=['Solutions'])
+#Tableau des concentrations et des fichiers
 print(principalDf)
-#print(elements)
 
 #reconstruction des spectres avec les vecteurs singuliers
 #sp = coef@pca.components_
