@@ -80,7 +80,6 @@ ordo = np.array(ordo)
 
 #Méthode d'analyse par composantes principales et définir la fonction ainsi que ses paramètres
 if analyse == 'exp':
-    print('hello')
     pca = PCA(n_components=4)
     col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4']
     p = [1, 1, 1, 1]
