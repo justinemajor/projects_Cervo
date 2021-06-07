@@ -125,7 +125,7 @@ for i in range(len(coef)):
 prop = np.array(prop)
 names = np.array([listNameOfFiles(path)])
 gen = np.hstack((names.transpose(), prop))
-principalDf = pd.DataFrame(data = gen, columns = ['Solutions']+col)
+principalDf = pd.DataFrame(data = gen, columns = ['Solution']+col)
 
 #Tableau des concentrations et des fichiers
 print(principalDf)
