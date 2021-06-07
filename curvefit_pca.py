@@ -11,7 +11,6 @@ import os
 import fnmatch
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-from tkinter import *
 
 #lire les données
 def listNameOfFiles(directory: str, extension="txt") -> list:

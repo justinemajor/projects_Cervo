@@ -1,5 +1,11 @@
 global total
 
+"""
+import tkinter as tk
+from tk import ttk
+from tk import scrolledtext
+"""
+
 y=0  
 from tkinter import *
 from tkinter import ttk
