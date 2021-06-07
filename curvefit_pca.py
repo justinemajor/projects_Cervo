@@ -128,6 +128,23 @@ print(elements)
 #sp = coef@pca.components_
 
 # Afficher les données et le curvefit
+tous = []
+for i in range(nb):
+    ax = f"ax{i}"
+    tous.append(ax)
+
+axs = np.arange(0, 15, 1).reshape(5, 3)
+
+fig1, tous = mpl.subplots(nb)
+
+cumul = 0
+for i in tous:
+    i.plot(donnees_tot_x, ordo[cumul], '#e377c2', label='Données brutes')
+    i.plot(donnees_tot_x, fonction(donnees_tot_x, *coef[cumul]), '#17becf', label='Données fittées')
+    i.legend()
+    cumul += 1
+
+"""
 fig1, ax1 = mpl.subplots()          # Figure 1
 ax1.plot(donnees_tot_x, ordo[num], '#e377c2', label='Données brutes')                 # Données
 
@@ -136,6 +153,7 @@ ax1.set_xlabel("x") # Titre des abscisses
 ax1.set_ylabel("y") # Titre des ordonnées
 ax1.set_title("Curvefit d'un spectre")      # Titre du graphique
 ax1.legend()
+"""
 
 # Afficher la figure
 mpl.show()
