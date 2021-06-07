@@ -37,15 +37,21 @@ analyse = str(input())
 if analyse not in ['exp', 'pca']:
     raise Error("Choisir entre exp (pour la proportion des spectres expérimentaux de base) ou pca (pour l'utilisation des vecteurs singuliers)")
 
-#choisir le spectre à afficher
-print("Choisissez le numéro de spectre à imprimer")
-num = int(input())
-if res == '01':
-    if num >= 13 or num < 0:
-        raise Error("L'indice du spectre n'existe pas.")
-if res == '10':
-    if num >= 14 or num < 0:
-        raise Error("L'indice du spectre n'existe pas.")
+#choisir le(s) spectre(s) à afficher
+print("N'afficher qu'un spectre ou tous? (un/tous)")
+meth = str(input())
+if meth == 'tous':
+    num = None
+
+elif meth == 'un':
+    print("Choisissez le numéro de spectre à imprimer")
+    num = int(input())
+    if res == '01':
+        if num >= 13 or num < 0:
+            raise Error("L'indice du spectre n'existe pas.")
+    if res == '10':
+        if num >= 14 or num < 0:
+            raise Error("L'indice du spectre n'existe pas.")
 
 #Définition des variables pertinentes
 path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/" + res
@@ -126,34 +132,42 @@ print(elements)
 
 #reconstruction des spectres avec les vecteurs singuliers
 #sp = coef@pca.components_
-
-# Afficher les données et le curvefit
+"""
 tous = []
 for i in range(nb):
     ax = f"ax{i}"
     tous.append(ax)
-
-axs = np.arange(0, 15, 1).reshape(5, 3)
-
-fig1, tous = mpl.subplots(nb)
-
-cumul = 0
-for i in tous:
-    i.plot(donnees_tot_x, ordo[cumul], '#e377c2', label='Données brutes')
-    i.plot(donnees_tot_x, fonction(donnees_tot_x, *coef[cumul]), '#17becf', label='Données fittées')
-    i.legend()
-    cumul += 1
-
 """
-fig1, ax1 = mpl.subplots()          # Figure 1
-ax1.plot(donnees_tot_x, ordo[num], '#e377c2', label='Données brutes')                 # Données
 
-ax1.plot(donnees_tot_x, fonction(donnees_tot_x, *coef[num]), '#17becf', label='Données fittées')        # Curvefit #sp[num]
-ax1.set_xlabel("x") # Titre des abscisses
-ax1.set_ylabel("y") # Titre des ordonnées
-ax1.set_title("Curvefit d'un spectre")      # Titre du graphique
-ax1.legend()
-"""
+# Afficher les données et le curvefit
+if num is None:
+    axs = np.arange(0, 15, 1).reshape(5, 3)
+    axs = list(axs)
+    for i in range(len(axs)):
+        axs[i] = list(axs[i])
+
+    fig1, axs = mpl.subplots(5, 3)
+
+    cumul = 0
+    for i in axs:
+        for ii in range(3):
+            if cumul <= 12 and res == '01' or cumul <= 13 and res == '10':
+                i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label='Données brutes')
+                i[ii].plot(donnees_tot_x, fonction(donnees_tot_x, *coef[cumul]), '#17becf', label='Données fittées')
+                i[ii].legend()
+                cumul += 1
+            else:
+                pass
+
+if num is not None:
+    fig1, ax1 = mpl.subplots()          # Figure 1
+    ax1.plot(donnees_tot_x, ordo[num], '#e377c2', label='Données brutes')                 # Données
+
+    ax1.plot(donnees_tot_x, fonction(donnees_tot_x, *coef[num]), '#17becf', label='Données fittées')        # Curvefit #sp[num]
+    ax1.set_xlabel("x") # Titre des abscisses
+    ax1.set_ylabel("y") # Titre des ordonnées
+    ax1.set_title("Curvefit d'un spectre")      # Titre du graphique
+    ax1.legend()
 
 # Afficher la figure
 mpl.show()
