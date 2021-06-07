@@ -22,7 +22,7 @@ def getFilePaths(directory: str, fileNames: list) -> list:
         filesWithFullPath.append(directory+"/"+fileName)
     return filesWithFullPath
 
-path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/10"
+path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/01"
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
@@ -44,7 +44,7 @@ for nom in listNameOfFiles(path):
     donnees_tot_y[nom] = y
 
 #imprimer les spectres
-fig2, (ax2, ax3, ax4, ax1, ax6, ax7, ax8, ax10) = plt.subplots(8)
+fig2, (ax2, ax3, ax4, ax1, ax6, ax7, ax8, ax9, ax10) = plt.subplots(9)
 ax2.plot(donnees_tot_x, ordo[0], '#e377c2', label='spectre RAMAN 1')
 ax2.set_xlabel('Wavenumber')      # titre des abscisses
 ax2.set_ylabel('Intensité')      # titre des ordonnées
@@ -80,13 +80,15 @@ print(pca.explained_variance_ratio_)
 print(sum(pca.explained_variance_ratio_))
 
 #vecteurs de base formés des vecteurs singuliers (composantes principales)
-PC = principalCoefficients@pca.components_ + pca.mean_
-#PC = pca.components_
+#PC = principalCoefficients@pca.components_ + pca.mean_
+PC = pca.components_
 
 PC1 = PC[0]
 PC2 = PC[1]
+PC3a = PC[2]
 PC3 = PC[3]
-PC4 = PC[7]
+PC4a = PC[4]
+#PC4 = PC[6]
 
 """
 PC = [PC1, PC2, PC3, PC4, PC5]
@@ -113,16 +115,22 @@ ax7.set_ylabel('Intensité')      # titre des ordonnées
 ax7.legend() # titre du graphique
 
 #fig8, ax8 = plt.subplots()
-ax8.plot(donnees_tot_x, PC3, '#17becf', label='spectre RAMAN PC3')
+ax8.plot(donnees_tot_x, PC3, '#17becf', label='spectre RAMAN PC4')
 ax8.set_xlabel('Wavenumber')      # titre des abscisses
 ax8.set_ylabel('Intensité')      # titre des ordonnées
 ax8.legend() # titre du graphique
 
 #fig10, ax10 = plt.subplots()
-ax10.plot(donnees_tot_x, PC4, 'b', label='spectre RAMAN PC4')
+ax10.plot(donnees_tot_x, PC4a, 'b', label='spectre RAMAN PC5')
 ax10.set_xlabel('Wavenumber')      # titre des abscisses
 ax10.set_ylabel('Intensité')      # titre des ordonnées
 ax10.legend() # titre du graphique
+
+#fig9, ax9 = plt.subplots()
+ax9.plot(donnees_tot_x, PC3a, 'b', label='spectre RAMAN PC3')
+ax9.set_xlabel('Wavenumber')      # titre des abscisses
+ax9.set_ylabel('Intensité')      # titre des ordonnées
+ax9.legend() # titre du graphique
 
 plt.tight_layout()
 plt.show()

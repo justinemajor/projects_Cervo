@@ -47,10 +47,12 @@ if res == '10':
     if num >= 14 or num < 0:
         raise Error("L'indice du spectre n'existe pas.")
 
+#Définition des variables pertinentes
 path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/" + res
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
+#création des listes de données
 for nom in listNameOfFiles(path):
     # Nom du fichier à importer
     fich = open(path + '/' + nom, "r")
@@ -69,10 +71,6 @@ for nom in listNameOfFiles(path):
     donnees_tot_y[nom] = y
 
 ordo = np.array(ordo)
-pca = np.array([])
-col = []
-p = []
-print(analyse)
 
 #Méthode d'analyse par composantes principales et définir la fonction ainsi que ses paramètres
 if analyse == 'exp':
@@ -109,12 +107,6 @@ for i in range(nb):
 
 coef = np.array(coef)
 
-"""
-tot = sum(coef[num])
-print(coef[num]/tot)
-print(listNameOfFiles(path)[num])
-"""
-
 #Calculer les concentrations de chaque composante principale
 prop = []
 for i in range(len(coef)):
@@ -127,9 +119,8 @@ for i in range(len(coef)):
 prop = np.array(prop)
 principalDf = pd.DataFrame(data = prop, columns = col)
 
-#Tableau des concentrations
+#Tableaux des concentrations et des fichiers
 print(principalDf)
-
 elements = pd.DataFrame(data = listNameOfFiles(path), columns=['Solutions'])
 print(elements)
 
@@ -138,9 +129,9 @@ print(elements)
 
 # Afficher les données et le curvefit
 fig1, ax1 = mpl.subplots()          # Figure 1
-ax1.plot(donnees_tot_x, ordo[num], 'r', label='Données brutes')                 # Données
+ax1.plot(donnees_tot_x, ordo[num], '#e377c2', label='Données brutes')                 # Données
 
-ax1.plot(donnees_tot_x, fonction(donnees_tot_x, *coef[num]), 'b', label='Données fittées')        # Curvefit #sp[num]
+ax1.plot(donnees_tot_x, fonction(donnees_tot_x, *coef[num]), '#17becf', label='Données fittées')        # Curvefit #sp[num]
 ax1.set_xlabel("x") # Titre des abscisses
 ax1.set_ylabel("y") # Titre des ordonnées
 ax1.set_title("Curvefit d'un spectre")      # Titre du graphique
