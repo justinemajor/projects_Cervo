@@ -119,7 +119,7 @@ for i in range(len(coef)):
     tot = sum(coef[i])
     totr = []
     for it in range(len(coef[i])):
-        totr.append(round(coef[i][it]/tot, 3))
+        totr.append(round(coef[i][it]/tot*100, 0))
     prop.append(totr)
 
 prop = np.array(prop)
