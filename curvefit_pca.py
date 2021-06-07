@@ -123,12 +123,14 @@ for i in range(len(coef)):
     prop.append(totr)
 
 prop = np.array(prop)
-principalDf = pd.DataFrame(data = prop, columns = col)
+names = np.array([listNameOfFiles(path)])
+gen = np.hstack((names.transpose(), prop))
+principalDf = pd.DataFrame(data = gen, columns = ['Solutions']+col)
 
 #Tableaux des concentrations et des fichiers
-print(principalDf)
 elements = pd.DataFrame(data = listNameOfFiles(path), columns=['Solutions'])
-print(elements)
+print(principalDf)
+#print(elements)
 
 #reconstruction des spectres avec les vecteurs singuliers
 #sp = coef@pca.components_
@@ -152,7 +154,7 @@ if num is None:
     for i in axs:
         for ii in range(3):
             if cumul <= 12 and res == '01' or cumul <= 13 and res == '10':
-                i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label='Données brutes')
+                i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label=f'Données brutes du spectre {listNameOfFiles(path)[cumul]}')
                 i[ii].plot(donnees_tot_x, fonction(donnees_tot_x, *coef[cumul]), '#17becf', label='Données fittées')
                 i[ii].legend()
                 cumul += 1
