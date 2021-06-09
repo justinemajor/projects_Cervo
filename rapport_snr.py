@@ -100,13 +100,11 @@ cumul = 0
 for i in axs:
     for ii in range(3):
         if cumul <= 12 and res == '01' or cumul <= 13 and res == '10':
-            yo = peaks[cumul]
-            lala = []
-            lolo = []
-            for x in yo:
-                lala.append(ordo[cumul][x])
-                lolo.append(donnees_tot_x[x])
-            i[ii].plot(lolo, lala, 'o')
+            pos_pics = peaks[cumul]
+            absi_pics = []
+            for x in pos_pics:
+                absi_pics.append(donnees_tot_x[x])
+            i[ii].plot(absi_pics, pkys[cumul], 'o')
             i[ii].plot(donnees_tot_x, ordo[cumul])
             #i[ii].legend()
             cumul += 1
