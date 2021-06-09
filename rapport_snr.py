@@ -78,7 +78,7 @@ for i in range(nb):
         pky.append(ordo[i][ii])
     pkys.append(pky)
 
-#Calculer le rapport SNR à chaque pic trouvé
+#Calculer le SNR à chaque pic trouvé
 snr = {}
 for i in range(nb):
     snr[listNameOfFiles(path)[i]] = np.array(pkys[i]) / bruits[i]
