@@ -22,7 +22,7 @@ def getFilePaths(directory: str, fileNames: list) -> list:
         filesWithFullPath.append(directory+"/"+fileName)
     return filesWithFullPath
 
-path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/01"
+path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/10"
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
@@ -55,7 +55,7 @@ ax3.set_xlabel('Wavenumber')      # titre des abscisses
 ax3.set_ylabel('Intensité')      # titre des ordonnées
 ax3.legend() # titre du graphique
 
-ax4.plot(donnees_tot_x, ordo[7], 'b-', label='spectre RAMAN 4')
+ax4.plot(donnees_tot_x, ordo[6], 'b-', label='spectre RAMAN 4')
 ax4.set_xlabel('Wavenumber')      # titre des abscisses
 ax4.set_ylabel('Intensité')      # titre des ordonnées
 ax4.legend() # titre du graphique

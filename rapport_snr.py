@@ -71,7 +71,7 @@ for i in range(nb):
 peaks = []
 pkys = []
 for i in range(nb):
-    peak = sp.signal.find_peaks(ordo[i], height=3*bruits[i]**2)
+    peak = sp.signal.find_peaks(ordo[i], height=3*bruits[i]**2, prominence=max(ordo[i])/20) #max(ordo[i])/15
     peaks.append(peak[0])
     pky = []
     for ii in peak[0]:
@@ -81,7 +81,10 @@ for i in range(nb):
 #Calculer le SNR à chaque pic trouvé
 snr = {}
 for i in range(nb):
-    snr[listNameOfFiles(path)[i]] = np.array(pkys[i]) / bruits[i]
+    snrs = np.array(pkys[i]) / bruits[i]
+    for ii in range(len(snrs)):
+        snrs[ii] = 10 * np.log(snrs[ii])
+    snr[listNameOfFiles(path)[i]] = snrs
 
 snrm = {}
 for key, val in snr.items():

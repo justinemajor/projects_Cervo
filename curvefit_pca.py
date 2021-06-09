@@ -46,10 +46,10 @@ elif meth == 'un':
     print("Choisissez le numéro de spectre à imprimer")
     num = int(input())
     if res == '01':
-        if num >= 13 or num < 0:
+        if num >= nb or num < 0:
             raise Error("L'indice du spectre n'existe pas.")
     if res == '10':
-        if num >= 14 or num < 0:
+        if num >= nb or num < 0:
             raise Error("L'indice du spectre n'existe pas.")
 
 #Définition des variables pertinentes
@@ -149,7 +149,7 @@ if num is None:
     cumul = 0
     for i in axs:
         for ii in range(3):
-            if cumul <= 12 and res == '01' or cumul <= 13 and res == '10':
+            if cumul <= nb-1 and res == '01' or cumul <= nb-1 and res == '10':
                 i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label=f'Données brutes du spectre {listNameOfFiles(path)[cumul]}')
                 i[ii].plot(donnees_tot_x, fonction(donnees_tot_x, *coef[cumul]), '#17becf', label='Données fittées')
                 i[ii].legend()
