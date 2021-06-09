@@ -56,18 +56,10 @@ for nom in listNameOfFiles(path):
 
 ordo = np.array(ordo)
 
+#Calculer le bruit des spectres
 def droite(x, a, b, c):
     return a*x**2 + b*x + c
 
-"""
-bruits = []
-for i in range(nb):
-    bruit = np.std(ordo[i][500:800])
-    bruits.append(bruit)
-print(bruits)
-"""
-
-#Calculer le bruit des spectres
 bruits = []
 for i in range(nb):
     popt, pcov = curve_fit(droite, donnees_tot_x[500:800], ordo[i][500:800], p0=[1, 1, 1])
@@ -75,7 +67,7 @@ for i in range(nb):
     bruit = np.std(ordo[i][500:800]-fct)
     bruits.append(bruit)
 
-#Trouver les pics des spectres
+#Trouver les pics des spectres et leur ordonnée respective
 peaks = []
 pkys = []
 for i in range(nb):
@@ -90,6 +82,7 @@ for i in range(nb):
 snr = {}
 for i in range(nb):
     snr[listNameOfFiles(path)[i]] = np.array(pkys[i]) / bruits[i]
+
 snrm = {}
 for key, val in snr.items():
     snrm[key] = np.mean(val)
