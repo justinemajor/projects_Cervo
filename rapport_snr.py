@@ -102,14 +102,14 @@ fig1, axs = mpl.subplots(5, 3)
 cumul = 0
 for i in axs:
     for ii in range(3):
-        if cumul <= 12 and res == '01' or cumul <= 13 and res == '10':
+        if cumul <= nb-1 and res == '01' or cumul <= nb-1 and res == '10':
             pos_pics = peaks[cumul]
             absi_pics = []
             for x in pos_pics:
                 absi_pics.append(donnees_tot_x[x])
             i[ii].plot(absi_pics, pkys[cumul], 'o')
-            i[ii].plot(donnees_tot_x, ordo[cumul])
-            #i[ii].legend()
+            i[ii].plot(donnees_tot_x, ordo[cumul], label=f'{cumul} -- {round(snrm[listNameOfFiles(path)[cumul]], 1)}')
+            i[ii].legend()
             cumul += 1
         else:
             pass
