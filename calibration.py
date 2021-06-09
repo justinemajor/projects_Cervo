@@ -77,8 +77,6 @@ popt, pcov = curve_fit(yo, xo, pics, p0=[1, 1, 1])
 print(popt)
 ax3.plot(xo, yo(xo, *popt))
 ax3.plot(xo, pics)
-
-
-
 ax2.legend()
+
 mpl.show()

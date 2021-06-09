@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as mpl
 from scipy import special
 import math
-from shapely.geometry import LineString
 from scipy.optimize import curve_fit
 import pandas as pd
 from tkinter.filedialog import askopenfile
