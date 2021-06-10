@@ -107,7 +107,7 @@ for i in axs:
             absi_pics = []
             for x in pos_pics:
                 absi_pics.append(donnees_tot_x[x])
-            i[ii].plot(absi_pics, pkys[cumul], 'o')
+            i[ii].plot(absi_pics, pkys[cumul], 'o', alpha=0.75)
             i[ii].plot(donnees_tot_x, ordo[cumul], label=f'{cumul} -- {round(snrm[listNameOfFiles(path)[cumul]], 1)}')
             i[ii].legend()
             cumul += 1
