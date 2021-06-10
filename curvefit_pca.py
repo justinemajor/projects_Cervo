@@ -5,6 +5,7 @@ import math
 from scipy.optimize import curve_fit
 import pandas as pd
 from tkinter.filedialog import askopenfile
+import argparse
 import csv
 import os
 import fnmatch
@@ -26,6 +27,45 @@ def getFilePaths(directory: str, fileNames: list) -> list:
     return filesWithFullPath
 
 #Choisir la résolution étudiée et le type d'analyse
+parser = argparse.ArgumentParser()
+parser.add_argument("reso", type=str,
+                    help="Decide the resolution of the spectrums", choices=['01', '10'])
+parser.add_argument("-pca", "--pca", action="store_true",
+                    help="Choose the PCA method for the analysis")
+parser.add_argument("-exp", "--exp", action="store_true",
+                    help="Choose the experimental method for the analysis")
+parser.add_argument("-un", "--nombre", action="store_true", help="Choose if you want to show all spectrums or just one.")
+args = parser.parse_args()
+res = args.reso
+if not args.pca and not args.exp or args.pca and args.exp:
+    raise Exception("Please choose a method.")
+if not args.nombre:
+    num = None
+
+#Définition des variables pertinentes
+path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/" + res
+donnees_tot_x, ordo, donnees_tot_y = [], [], {}
+nb = len(listNameOfFiles(path))
+
+#choisir le(s) spectre(s) à afficher
+if args.nombre:
+    print("Choisissez le numéro de spectre à imprimer")
+    num = int(input())
+    if res == '01':
+        if num >= nb or num < 0:
+            raise Error("L'indice du spectre n'existe pas.")
+    if res == '10':
+        if num >= nb or num < 0:
+            raise Error("L'indice du spectre n'existe pas.")
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("num", type=int,
+                        help="Decide the index of one spectrum to show.", choices=np.linspace(0, nb, 1))
+    args = parser.parse_args()
+    num = args.num
+    """
+
+"""
 print("Choisissez la résolution des spectres à étudier (temps d'intégration de 01 ou 10)")
 res = str(input())
 if res not in ['01', '10']:
@@ -46,16 +86,7 @@ print("N'afficher qu'un spectre ou tous? (un/tous)")
 meth = str(input())
 if meth == 'tous':
     num = None
-
-elif meth == 'un':
-    print("Choisissez le numéro de spectre à imprimer")
-    num = int(input())
-    if res == '01':
-        if num >= nb or num < 0:
-            raise Error("L'indice du spectre n'existe pas.")
-    if res == '10':
-        if num >= nb or num < 0:
-            raise Error("L'indice du spectre n'existe pas.")
+"""
 
 #création des listes de données
 for nom in listNameOfFiles(path):
@@ -78,7 +109,7 @@ for nom in listNameOfFiles(path):
 ordo = np.array(ordo)
 
 #Méthode d'analyse par composantes principales et définir la fonction ainsi que ses paramètres
-if analyse == 'exp':
+if args.exp:
     pca = PCA(n_components=4)
     col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4']
     p = [1, 1, 1, 1]
@@ -89,7 +120,7 @@ if analyse == 'exp':
         i4 = listNameOfFiles(path).index(f'1000_{res}.txt')
         return a*ordo[i1]+b*ordo[i2]+c*ordo[i3]+d*ordo[i4]
 
-elif analyse == 'pca':
+elif args.pca:
     pca = PCA(n_components=5)
     col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5']
     p = [1, 1, 1, 1, 1]
