@@ -43,7 +43,7 @@ if not args.nombre:
     num = None
 
 #Définition des variables pertinentes
-path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/" + res
+path = "/Users/justinemajor/Documents/gph/stage1/documents/spectres/" + res
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
@@ -77,7 +77,7 @@ if analyse not in ['exp', 'pca']:
     raise Error("Choisir entre exp (pour la proportion des spectres expérimentaux de base) ou pca (pour l'utilisation des vecteurs singuliers)")
 
 #Définition des variables pertinentes
-path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/spectres/" + res
+path = "/Users/justinemajor/Documents/gph/stage1/documents/spectres/" + res
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 

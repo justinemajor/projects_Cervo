@@ -19,7 +19,7 @@ def getFilePaths(directory: str, fileNames: list) -> list:
         filesWithFullPath.append(directory+"/"+fileName)
     return filesWithFullPath
 
-path = "/Users/justinemajor/Documents/gph.doc/stage1/documents/iso_vs"
+path = "/Users/justinemajor/Documents/gph/stage1/documents/iso_vs"
 x, y, el = [], {}, []
 nb = len(listNameOfFiles(path))
 
