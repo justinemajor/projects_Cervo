@@ -32,7 +32,7 @@ if res not in ['01', '10']:
     raise Error('Choisir entre 01 et 10.')
 
 #Définition des variables pertinentes
-path = "/Users/justinemajor/Documents/gph/stage1/documents/spectres/" + res
+path = "/Users/justinemajor/Documents/ecole/gph/stage1/documents/spectres/" + res
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
