@@ -58,7 +58,7 @@ coefs = principalCoefficients + m
 print(sum(pca.explained_variance_ratio_))
 
 
-# Compute the concentration of every PC
+# Compute the concentration of every PC in every raw spectrum data
 col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5']
 prop = []
 for i in range(len(coefs)):
