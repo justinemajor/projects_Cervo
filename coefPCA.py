@@ -45,13 +45,15 @@ for nom in listNameOfFiles(path):
     donnees_tot_y[nom] = y
 
 #méthode d'analyse par les composantes principales, création de la matrice des coefficients
-pca = PCA(n_components=5)
+pca = PCA(0.99)
 principalCoefficients = pca.fit_transform(ordo)
 principalComponents = np.array(pca.components_)
 inverse = np.linalg.pinv(principalComponents)
 moy = np.array(pca.mean_)
 m = moy@inverse
 coefs = principalCoefficients + m
+
+print(sum(pca.explained_variance_ratio_))
 
 #Calculer les concentrations de chaque composante principale
 col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5']
@@ -66,32 +68,34 @@ for i in range(len(coefs)):
 prop = np.array(prop)
 names = np.array([listNameOfFiles(path)])
 gen = np.hstack((names.transpose(), prop))
-principalDf = pd.DataFrame(data=gen, columns=['Solution']+col)
 
 
 #Créer le tableau des concentrations à afficher
-pd.set_option('display.max_columns', None)
-principalDf.head()
-print(principalDf)
+if len(pca.components_) == 5:
+    principalDf = pd.DataFrame(data=gen, columns=['Solution'] + col)
+    pd.set_option('display.max_columns', None)
+    principalDf.head()
+    print(principalDf)
 
 #Afficher les spectres et leur reconstruction par les composantes PCA
-axs = np.arange(0, 15, 1).reshape(5, 3)
-axs = list(axs)
-for i in range(len(axs)):
-    axs[i] = list(axs[i])
+if nb <= 15:
+    axs = np.arange(0, 15, 1).reshape(5, 3)
+    axs = list(axs)
+    for i in range(len(axs)):
+        axs[i] = list(axs[i])
 
-fig1, axs = mpl.subplots(5, 3)
-resp = coefs@(pca.components_)
-print(resp.shape)
+    fig1, axs = mpl.subplots(5, 3)
+    resp = coefs@(pca.components_)
+    print(resp.shape)
 
-cumul = 0
-for i in axs:
-    for ii in range(3):
-        if cumul <= nb-1 and res == '01' or cumul <= nb-1 and res == '10':
-            i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label=f'Données brutes du spectre {listNameOfFiles(path)[cumul]}')
-            i[ii].plot(donnees_tot_x, resp[cumul], '#17becf', linestyle='-', label='Données fittées')
-            i[ii].legend()
-            cumul += 1
-        else:
-            pass
-mpl.show()
+    cumul = 0
+    for i in axs:
+        for ii in range(3):
+            if cumul <= nb-1 and res == '01' or cumul <= nb-1 and res == '10':
+                i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label=f'Données brutes du spectre {listNameOfFiles(path)[cumul]}')
+                i[ii].plot(donnees_tot_x, resp[cumul], '#17becf', linestyle='-', label='Données fittées')
+                i[ii].legend()
+                cumul += 1
+            else:
+                pass
+    mpl.show()
