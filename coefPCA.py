@@ -52,8 +52,7 @@ inverse = np.linalg.pinv(principalComponents)
 moy = np.array(pca.mean_)
 m = moy@inverse
 coefs = principalCoefficients + m
-
-print(sum(pca.explained_variance_ratio_))
+#print(sum(pca.explained_variance_ratio_))
 
 #Calculer les concentrations de chaque composante principale
 col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5']
@@ -92,7 +91,8 @@ if nb <= 15:
     for i in axs:
         for ii in range(3):
             if cumul <= nb-1 and res == '01' or cumul <= nb-1 and res == '10':
-                i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label=f'Données brutes du spectre {listNameOfFiles(path)[cumul]}')
+                id = f'Données brutes du spectre {listNameOfFiles(path)[cumul]}'
+                i[ii].plot(donnees_tot_x, ordo[cumul], '#e377c2', label=id)
                 i[ii].plot(donnees_tot_x, resp[cumul], '#17becf', linestyle='-', label='Données fittées')
                 i[ii].legend()
                 cumul += 1
