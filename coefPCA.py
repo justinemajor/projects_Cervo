@@ -44,7 +44,7 @@ for nom in listNameOfFiles(path):
     ordo.append(y)
     donnees_tot_y[nom] = y
 
-#méthode d'analyse par les composantes principales
+#méthode d'analyse par les composantes principales, création de la matrice des coefficients
 pca = PCA(n_components=5)
 principalCoefficients = pca.fit_transform(ordo)
 principalComponents = np.array(pca.components_)
@@ -69,18 +69,19 @@ gen = np.hstack((names.transpose(), prop))
 principalDf = pd.DataFrame(data=gen, columns=['Solution']+col)
 
 
-#principalDf = pd.DataFrame(data=coefs, columns=['principal component 1', 'principal component 2', 'principal component 3', 'principal component 4', 'principal component 5'])
+#Créer le tableau des concentrations à afficher
 pd.set_option('display.max_columns', None)
 principalDf.head()
 print(principalDf)
 
+#Afficher les spectres et leur reconstruction par les composantes PCA
 axs = np.arange(0, 15, 1).reshape(5, 3)
 axs = list(axs)
 for i in range(len(axs)):
     axs[i] = list(axs[i])
 
 fig1, axs = mpl.subplots(5, 3)
-resp = coefs@(pca.components_[0:5])
+resp = coefs@(pca.components_)
 print(resp.shape)
 
 cumul = 0
