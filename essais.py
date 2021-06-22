@@ -5,13 +5,16 @@ import matplotlib.pyplot as mpl
 import math
 import time
 
-"""
+
 a = [[1, 2, 3]]
 b = [[4, 5, 6]]
 
-c = a+b
-c = np.array(c)
-print(len(c))
+c = np.vstack((a, b))
+print(c)
+d = np.linalg.pinv(c)
+print(d)
+e = c@d
+print(e)
 """
 def isYouPretty():
     return True
@@ -23,3 +26,4 @@ print("joie")
 
 dico = {'yo':[1, 2, 3]}
 print(dico.keys())
+"""

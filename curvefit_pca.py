@@ -43,7 +43,7 @@ if not args.nombre:
     num = None
 
 #Définition des variables pertinentes
-path = "/Users/justinemajor/Documents/ecole/gph.doc/stage1/documents/spectres/" + res
+path = "/Users/justinemajor/Documents/ecole/gph/stage1/documents/spectres/" + res
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
