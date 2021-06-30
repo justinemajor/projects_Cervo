@@ -89,5 +89,5 @@ top = yo.max(axis=2)
 top = np.dstack((top, )*3)
 yo /= top
 
-print(top)
+print(np.shape(top))
 print(yo)
