@@ -72,16 +72,22 @@ l = 8
 
 deb = np.zeros((x, y, l))
 yo = np.zeros((x, y, 3))
-top = np.zeros((x, y, 1))
+top = np.zeros((x, y))
 
 deb[0, 0, :] = np.array([1, 2, 3, 4, 5, 6, 7, 8])
 deb[0, 1, :] = np.array([1, 1, 1, 1, 1, 1, 1, 1])
 deb[1, :, :] = np.array([4, 5, 6, 7, 8, 2, 2, 2])
+deb[2, 1, :] = np.array([3, 5, 7, 3, 7, 23, 5, 2])
 
 yo[:, :, 0] = deb[:, :, 0:3].sum(axis=2)
 yo[:, :, 1] = deb[:, :, 3:5].sum(axis=2)
-yo[:, :, 2] = deb[:, :, 5:l+1].sum(axis=2)
+yo[:, :, 2] = deb[:, :, 5:l].sum(axis=2)
 
-yo = (yo/np.max(yo))*255
+#print(yo)
+#yo = (yo/np.max(yo))*255
+top = yo.max(axis=2)
+top = np.dstack((top, )*3)
+yo /= top
 
+print(top)
 print(yo)
