@@ -29,44 +29,88 @@ dico = {'yo':[1, 2, 3]}
 print(dico.keys())
 """
 
-"""
-height = 3
-width = 3
+height = 4
+width = 4
 countWidth = 0
 countHeight = 0
-countSpectrums = 0
+countSpectrum = 0
 triste = True
+
+"""
 while triste:
-    #print(f"({countWidth}, {countHeight})")
-    if countSpectrums < width*height:
+    print(f"{countSpectrum}: ({countWidth}, {countHeight})")
+    if countWidth < width - 1:
+        # wait for signal... (with a connect?)
+        countWidth += 1
+        # print(f"{countSpectrum}: ({countWidth}, {countHeight})")
+    elif countHeight < height and countWidth == width - 1:
+        if countSpectrum < width * height - 1:
+            # wait for signal...
+            countWidth = 0
+            countHeight += 1
+            # print(f"{countSpectrum}: ({countWidth}, {countHeight})")
+        else:
+            triste = False
+            # enable_all_buttons()
+    else:
+        triste = False
+
+    countSpectrum += 1
+"""
+
+while triste:
+    print(f"{countSpectrum}: ({countWidth}, {countHeight})")
+    if countSpectrum < width * height - 1:
+        if countHeight % 2 == 0:
+            if countWidth < width - 1:
+                countWidth += 1
+            elif countWidth == width - 1:
+                countHeight += 1
+        elif countHeight % 2 == 1:
+            if countWidth > 0:
+                countWidth -= 1
+            elif countWidth == 0:
+                countHeight += 1
+    else:
+        triste = False
+        # enabled...
+
+    countSpectrum += 1
+
+"""
+while triste:
+    print(f"{countSpectrum}: ({countWidth}, {countHeight})")
+    if countSpectrum < width*height:
         if countWidth < width - 1 and countHeight % 2 == 0:
             countWidth += 1
-            print(f"({countWidth}, {countHeight})")
+            # print(f"({countWidth}, {countHeight})")
         elif countWidth == width - 1 and countHeight % 2 == 0:
             countHeight += 1
             if countHeight == height:
                 triste = False
             else:
-                print(f"({countWidth}, {countHeight})")
+                # print(f"({countWidth}, {countHeight})")
         elif 0 < countWidth < width and countHeight % 2 == 1:
             countWidth -= 1
-            print(f"({countWidth}, {countHeight})")
+            # print(f"({countWidth}, {countHeight})")
         elif countWidth == 0 and countHeight % 2 == 1:
             countHeight += 1
             if countHeight == height:
                 triste = False
             else:
-                print(f"({countWidth}, {countHeight})")
+                # print(f"({countWidth}, {countHeight})")
 
         else:
             raise Exception("What the hell is going on?")
 
-        countSpectrums += 1
+        countSpectrum += 1
 
     else:
         triste = False
 """
 
+
+"""
 x = 3
 y = 3
 l = 8
@@ -92,3 +136,4 @@ yo /= top
 
 print(np.shape(top))
 print(yo)
+"""
