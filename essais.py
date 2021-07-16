@@ -58,6 +58,7 @@ while triste:
     countSpectrum += 1
 """
 
+"""
 while triste:
     print(f"{countSpectrum}: ({countWidth}, {countHeight})")
     if countSpectrum < width * height - 1:
@@ -76,6 +77,7 @@ while triste:
         # enabled...
 
     countSpectrum += 1
+"""
 
 """
 while triste:
@@ -110,7 +112,6 @@ while triste:
 """
 
 
-"""
 x = 3
 y = 3
 l = 8
@@ -128,12 +129,17 @@ yo[:, :, 0] = deb[:, :, 0:3].sum(axis=2)
 yo[:, :, 1] = deb[:, :, 3:5].sum(axis=2)
 yo[:, :, 2] = deb[:, :, 5:l].sum(axis=2)
 
-#print(yo)
-#yo = (yo/np.max(yo))*255
 top = yo.max(axis=2)
 top = np.dstack((top, )*3)
 yo /= top
 
-print(np.shape(top))
 print(yo)
-"""
+for i, x in enumerate(yo):
+    for ii, y in enumerate(x):
+        print(f"({i}, {ii}) : [")
+        for iii, z in enumerate(y):
+            if iii != len(y)-1:
+                print(f"{z}, ")
+            else:
+                print(f"{z}]")
+
