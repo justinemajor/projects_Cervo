@@ -105,22 +105,22 @@ PC2 = PC[1]
 fig2, (ax5, ax6, ax7, ax8) = mpl.subplots(4)
 
 #Imprimer les spectres des composantes principales obtenues
-ax6.plot(donnees_tot_x, PC1, "#e377c2", label='spectre RAMAN PC1')
+ax6.plot(donnees_tot_x, PC1, "#e377c2", label='RAMAN spectrum PC1')
 ax6.set_xlabel('wavelength')      # titre des abscisses
 ax6.set_ylabel('Intensity')      # titre des ordonnées
 ax6.legend() # titre du graphique
 
-ax7.plot(donnees_tot_x, PC2, 'r', label='spectre RAMAN PC2')
+ax7.plot(donnees_tot_x, PC2, 'r', label='RAMAN spectrum PC2')
 ax7.set_xlabel('wavelength')      # titre des abscisses
 ax7.set_ylabel('Intensity')      # titre des ordonnées
 ax7.legend()  # titre du graphique
 
-ax5.plot(donnees_tot_x, ordo[2], 'r', label='spectre RAMAN x12 y11')
+ax5.plot(donnees_tot_x, ordo[2], 'r', label='RAMAN spectrum x12 y11')
 ax5.set_xlabel('wavelength')      # titre des abscisses
 ax5.set_ylabel('Intensity')      # titre des ordonnées
 ax5.legend()  # titre du graphique
 
-ax8.plot(donnees_tot_x, ordo[895], 'r', label='spectre RAMAN lamelle')
+ax8.plot(donnees_tot_x, ordo[895], 'r', label='spectre RAMAN slide')
 ax8.set_xlabel('wavelength')      # titre des abscisses
 ax8.set_ylabel('Intensity')      # titre des ordonnées
 ax8.legend()  # titre du graphique

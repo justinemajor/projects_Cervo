@@ -116,6 +116,7 @@ x = 3
 y = 3
 l = 8
 
+"""
 deb = np.zeros((x, y, l))
 yo = np.zeros((x, y, 3))
 top = np.zeros((x, y))
@@ -142,4 +143,15 @@ for i, x in enumerate(yo):
                 print(f"{z}, ")
             else:
                 print(f"{z}]")
+"""
 
+a = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+
+a = (1 - 1/a) * 10**2
+a = np.round(a, 0)
+
+print(a)
+
+print(int(3.7))
+print(np.round(3.7))
+print(round(3.7))
