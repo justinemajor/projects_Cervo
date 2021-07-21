@@ -145,6 +145,7 @@ for i, x in enumerate(yo):
                 print(f"{z}]")
 """
 
+"""
 a = np.array([1, 2, 3, 4, 5, 6, 7, 8])
 
 a = (1 - 1/a) * 10**2
@@ -155,3 +156,19 @@ print(a)
 print(int(3.7))
 print(np.round(3.7))
 print(round(3.7))
+"""
+
+b = np.array((2, 4, 7, 8))
+b = b.reshape((1, 1, len(b)))
+b = np.vstack((b, )*3)
+b = np.hstack((b, )*3)
+
+a = np.array((1, 2, 3, 4))
+a = a.reshape((1, 1, len(a)))
+a = np.vstack((a, )*3)
+a = np.hstack((a, )*3)
+
+a = b-a
+
+print(a)
+print(np.shape(a))

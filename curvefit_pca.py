@@ -53,10 +53,10 @@ if args.nombre:
     num = int(input())
     if res == '01':
         if num >= nb or num < 0:
-            raise Error("L'indice du spectre n'existe pas.")
+            raise Exception("L'indice du spectre n'existe pas.")
     if res == '10':
         if num >= nb or num < 0:
-            raise Error("L'indice du spectre n'existe pas.")
+            raise Exception("L'indice du spectre n'existe pas.")
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("num", type=int,
