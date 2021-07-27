@@ -5,6 +5,7 @@ import threading
 import matplotlib.pyplot as mpl
 import math
 import time
+import re
 
 """
 a = [[1, 2, 3]]
@@ -158,6 +159,7 @@ print(np.round(3.7))
 print(round(3.7))
 """
 
+"""
 b = np.array((2, 4, 7, 8))
 b = b.reshape((1, 1, len(b)))
 b = np.vstack((b, )*3)
@@ -172,3 +174,35 @@ a = b-a
 
 print(a)
 print(np.shape(a))
+
+mimi = [1, 2, 3]  # []
+mimi = np.array(mimi)
+if not list(mimi):
+    print('joie')
+
+if list(mimi):
+    print('lol')
+
+
+class TryToGetInstance:
+    def __init__(self):
+        self.yolo = "style"
+        self.what = 0
+
+    def define(self):
+        return self.what
+
+print(TryToGetInstance().yolo)
+print(TryToGetInstance().define())
+"""
+
+nom = 'spectrum_x10_y3.csv'
+
+tik = time.perf_counter()
+matchObj = re.match("\\D*(\\d+)\\D*(\\d+)\\D*", nom)
+if matchObj:
+    val1 = int(matchObj.group(1))
+    val2 = int(matchObj.group(2))
+tok = time.perf_counter()
+print(val1, val2)
+print(tok-tik)
