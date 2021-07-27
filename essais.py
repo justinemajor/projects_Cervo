@@ -199,10 +199,11 @@ print(TryToGetInstance().define())
 nom = 'spectrum_x10_y3.csv'
 
 tik = time.perf_counter()
-matchObj = re.match("\\D*(\\d+)\\D*(\\d+)\\D*", nom)
+matchObj = re.match("([A-Za-z]*)_\\D*?(\\d+)\\D*?(\\d+)\\D*", nom)
 if matchObj:
-    val1 = int(matchObj.group(1))
+    val1 = str(matchObj.group(1))
     val2 = int(matchObj.group(2))
+    val3 = int(matchObj.group(3))
+    print(val1, val2, val3)
 tok = time.perf_counter()
-print(val1, val2)
 print(tok-tik)
