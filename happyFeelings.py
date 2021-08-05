@@ -1,5 +1,7 @@
 import re as feeling
 
+# So, our story begin with 5 people talking about their feelings...
+
 people = 5
 affirmation = "Je suis remplie d'une certaine joie et d'un grand bonheur!"
 for person in range(people):
@@ -12,3 +14,5 @@ for person in range(people):
         else:
             affirmation = "Mais quelle heureuse nouvelle! Moi de même, je suis de bonne heure hihihi ;P"
     print(affirmation)
+
+# And all is well that ends well! They lived happily ever after.
