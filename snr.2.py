@@ -80,7 +80,7 @@ for i in range(nb):
         pky.append(ordo[i][ii])
     pkys.append(pky)
 
-#Calculer le SNR à chaque pic trouvé
+# Compute SNR at every important peak
 snr = {}
 for i in range(nb):
     snrs = np.array(pkys[i]) / bruits[i]

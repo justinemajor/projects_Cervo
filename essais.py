@@ -6,6 +6,8 @@ import matplotlib.pyplot as mpl
 import math
 import time
 import re
+from hardwarelibrary.notificationcenter import NotificationCenter as notif
+from hardwarelibrary.notificationcenter import Notification
 
 """
 a = [[1, 2, 3]]
@@ -112,7 +114,6 @@ while triste:
         triste = False
 """
 
-
 x = 3
 y = 3
 l = 8
@@ -196,6 +197,49 @@ print(TryToGetInstance().yolo)
 print(TryToGetInstance().define())
 """
 
+class Mirteille:
+    def __init__(self):
+        self._lab = None
+        self.joie = 'abc'
+        notif().addObserver(self, self.react, "joie", self)
+
+    def react(self, notification):
+        print(notification)
+        print(notification.userInfo)
+        one = notification.userInfo["joie"]
+        print(one)
+        print("it works!")
+
+    @property
+    def lab(self):
+        # print(self._lab)
+        return self._lab
+
+    @lab.setter
+    def lab(self, lab):
+        self._lab = lab
+
+    def testArgs(self, joie=None):
+        self.defaultError()
+        if joie is None:
+            joie = self.joie
+        print(joie)
+
+    def defaultError(self):
+        if 1:
+            raise ValueError("This is supposed to raise error and not return anything.")
+        return True
+
+    def sendNotif(self, info=None):
+        notif().postNotification("joie", self, userInfo=info)
+
+mirteille = Mirteille()
+# mirteille.lab = "MirteilleLab"
+# print(mirteille.lab)
+# mirteille.testArgs()
+mirteille.sendNotif({1: "premier", "joie": True})
+
+"""
 nom = 'spectrum_x10_y3.csv'
 
 tik = time.perf_counter()
@@ -213,6 +257,7 @@ nom = "spectrum_background.csv"
 matchObj = re.match(".*?(_background).*", nom)
 if matchObj:
     print(str(matchObj.group(1)))
+"""
 
 """
 a = 21
