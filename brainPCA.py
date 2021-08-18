@@ -72,7 +72,7 @@ n = 10
 
 for ind, spec in enumerate(ordo):
     fft = np.fft.fft(spec)
-    fft[:n] = np.zeros(n)
+    fft[1:n+1] = np.zeros(n)
     fft[-n:] = np.zeros(n)
     hpf.append(fft)
     newSpec = np.fft.ifft(fft)
@@ -86,8 +86,8 @@ inverse = np.linalg.pinv(principalComponents)
 moy = np.array(pca.mean_)
 m = moy@inverse
 coefs = principalCoefficients + m
-# spectra = coefs@principalComponents
-spectra = principalCoefficients@principalComponents + pca.mean_
+spectra = coefs@principalComponents  # TODO still not quite working or efficient...
+# spectra = principalCoefficients@principalComponents + pca.mean_
 print(pca.explained_variance_ratio_)
 print(sum(pca.explained_variance_ratio_))
 
@@ -96,15 +96,15 @@ print(sum(pca.explained_variance_ratio_))
 col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4', 'Concentration 5']
 prop = []
 for i in range(len(coefs)):
-    tot = sum(coefs[i])
+    tot = sum(abs(coefs[i]))
     totr = []
     for it in range(len(coefs[i])):
-        totr.append(round(coefs[i][it]/tot*100, 0))
+        totr.append(round(coefs[i][it]/tot*100, 0))  # TODO should I make each proportion a strictly positive value?
     prop.append(totr)
 
 prop = np.array(prop)
 names = np.array([liste])
-gen = np.hstack((names.transpose(), coefs))
+gen = np.hstack((names.transpose(), prop))
 
 
 # Create the table of concentrations and show

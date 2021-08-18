@@ -6,30 +6,41 @@ import matplotlib.pyplot as mpl
 fig1, [ax1, ax2, ax3] = mpl.subplots(3)
 
 """2. Creating an arbitrary spectrum to test the method"""
-spectrum = np.array([0, 0, 10, 0, 0, 0, 5, 10, 5, 2, 0, 0, 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0])
+# spectrum = np.array([1, 0, 10, 0, 0, 0, 5, 10, 5, 2, 0, 0, 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0])
+spectrum = np.random.randint(0, 15, 51)
 ax1.plot(spectrum, label="raw spectrum")
 
 """3. Fourier transformation"""
 fft = np.fft.fft(spectrum)
 ax2.plot(fft, label="fft before filter")
-ax2.plot(11.5, (fft[11]+fft[12])/2, "ok", label="middle point")
+# ax2.plot(11.5, (fft[11]+fft[12])/2, "ok", label="middle point")
 
 """4. Apply a "symmetrical" filter, either high-pass or low-pass"""
-# Better when keeping the first point, because of a vertical translation/alignment, sometimes the last point too
-nCut = 2
-tot = len(fft) - 1
-if tot % 2 == 0:
-    lmi = int((tot - 1)/2) + 1  # lowerMiddleIndex
+# Better when keeping the first point, because of a vertical translation/alignment
+nCut = 20
+tot = len(fft)
+ff = "lpf"  # frequency filter, which has a value of either "lpf" or "hpf"
+
+if tot % 2 == 1:
+    lmi = int((tot-1)/2)  # lowerMiddleIndex
     umi = lmi + 1  # upperMiddleIndex
+else:
+    lmi = int(tot/2)
+    umi = lmi
 
 """For low-pass filter (LPF)"""
-# fft[1:1+n] = np.zeros(n)
-# fft[-n:] = np.zeros(n)  # symmetrical!
+if ff == "lpf":
+    fft[1:1+nCut] = np.zeros(nCut)
+    fft[-nCut:] = np.zeros(nCut)  # symmetrical!
 
 """For high-pass filter (HPF)"""
-lowerLimit = lmi-nCut+1
-upperLimit = umi+nCut
-fft[lowerLimit:upperLimit] = np.zeros(int(2*nCut))
+if ff == "hpf":
+    lowerLimit = lmi-nCut+1
+    upperLimit = umi+nCut
+    fft[lowerLimit:upperLimit] = np.zeros(upperLimit-lowerLimit)
+
+if ff not in ["lpf", "hpf"]:
+    raise ValueError("The value given to the frequency filter is not an option. Please choose between 'lpf' and 'hpf'.")
 
 ax2.plot(fft, label="fft after filter")
 
