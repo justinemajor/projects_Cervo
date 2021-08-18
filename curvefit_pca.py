@@ -42,12 +42,12 @@ if not args.pca and not args.exp or args.pca and args.exp:
 if not args.nombre:
     num = None
 
-#Définition des variables pertinentes
+# Définition des variables pertinentes
 path = "/Users/justinemajor/Documents/ecole/gph/stage1/documents/spectres/" + res
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
-#choisir le(s) spectre(s) à afficher
+# choisir le(s) spectre(s) à afficher
 if args.nombre:
     print("Choisissez le numéro de spectre à imprimer")
     num = int(input())
@@ -88,7 +88,7 @@ if meth == 'tous':
     num = None
 """
 
-#création des listes de données
+# création des listes de données
 for nom in listNameOfFiles(path):
     # Nom du fichier à importer
     fich = open(path + '/' + nom, "r")
@@ -108,7 +108,7 @@ for nom in listNameOfFiles(path):
 
 ordo = np.array(ordo)
 
-#Méthode d'analyse par composantes principales et définir la fonction ainsi que ses paramètres
+# Méthode d'analyse par composantes principales et définir la fonction ainsi que ses paramètres
 if args.exp:
     pca = PCA(n_components=4)
     col = ['Concentration 1', 'Concentration 2', 'Concentration 3', 'Concentration 4']
@@ -132,7 +132,7 @@ else :
 
 principalCoefficients = pca.fit_transform(ordo)
 
-#Matrice des coefficients
+# Matrice des coefficients
 coef = []
 for i in range(nb):
     popt = []
@@ -142,7 +142,7 @@ for i in range(nb):
 
 coef = np.array(coef)
 
-#Calculer les concentrations de chaque composante principale
+# Calculer les concentrations de chaque composante principale
 prop = []
 for i in range(len(coef)):
     tot = sum(coef[i])
@@ -156,11 +156,11 @@ names = np.array([listNameOfFiles(path)])
 gen = np.hstack((names.transpose(), prop))
 principalDf = pd.DataFrame(data = gen, columns = ['Solution']+col)
 
-#Tableau des concentrations et des fichiers
+# Tableau des concentrations et des fichiers
 print(principalDf)
 
-#reconstruction des spectres avec les vecteurs singuliers
-#sp = coef@pca.components_
+# reconstruction des spectres avec les vecteurs singuliers
+# sp = coef@pca.components_
 """
 tous = []
 for i in range(nb):

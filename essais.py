@@ -197,6 +197,7 @@ print(TryToGetInstance().yolo)
 print(TryToGetInstance().define())
 """
 
+"""
 class Mirteille:
     def __init__(self):
         self._lab = None
@@ -238,6 +239,17 @@ mirteille = Mirteille()
 # print(mirteille.lab)
 # mirteille.testArgs()
 mirteille.sendNotif({1: "premier", "joie": True})
+"""
+
+"""
+rand = np.random.randint(1, 5)
+spec = np.array((1, 2, 3, 4))
+spec2 = np.array((1, 1, 1, 1))
+new = rand*spec + rand*spec2
+new = list(new)
+print(type(new))
+print(new)
+"""
 
 """
 nom = 'spectrum_x10_y3.csv'
@@ -264,3 +276,10 @@ a = 21
 a //= 6
 print(a)
 """
+
+file = "paperBrain_x0_y0.csv"
+# file = "spectrum_x0_y0.csv"
+
+match = re.match("(paperBrain)[A-Za-z_.]*", file)
+if match:
+    print("yay")

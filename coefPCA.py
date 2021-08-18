@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import fnmatch
-from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA, FastICA
 import numpy as np
 import matplotlib.pyplot as mpl
 
@@ -23,7 +23,7 @@ def getFilePaths(directory: str, fileNames: list) -> list:
 
 # Useful Information and instances
 res = '10'
-path = "/Users/justinemajor/Documents/ecole/gph/stage1/documents/spectres/" + res
+path = "/Volumes/Goliath/labdata/jmajor/microraman/20210527-translucentSolutionsTestForPCA/" + res + "secIntegration"
 donnees_tot_x, ordo, donnees_tot_y = [], [], {}
 nb = len(listNameOfFiles(path))
 
@@ -81,7 +81,7 @@ if len(pca.components_) <= 5:
     print(principalDf)
 
 
-# Show spectrums and their equivalent in PC basis
+# Show spectra and their equivalent in PC basis
 if nb <= 15:
     axs = np.arange(0, 15, 1).reshape(5, 3)
     axs = list(axs)
