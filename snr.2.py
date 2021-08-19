@@ -75,10 +75,7 @@ pkys = []
 for i in range(nb):
     peak = sp.signal.find_peaks(ordo[i], height=3*bruits[i]**2, prominence=max(ordo[i])/20) #max(ordo[i])/15
     peaks.append(peak[0])
-    pky = []
-    for ii in peak[0]:
-        pky.append(ordo[i][ii])
-    pkys.append(pky)
+    pkys.append(ordo[i][peak[0]])
 
 # Compute SNR at every important peak
 snr = {}

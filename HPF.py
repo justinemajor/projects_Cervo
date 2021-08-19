@@ -19,7 +19,7 @@ ax2.plot(fft, label="fft before filter")
 # Better when keeping the first point, because of a vertical translation/alignment
 nCut = 20
 tot = len(fft)
-ff = "lpf"  # frequency filter, which has a value of either "lpf" or "hpf"
+ff = "hpf"  # frequency filter, which has a value of either "lpf" or "hpf"
 
 if tot % 2 == 1:
     lmi = int((tot-1)/2)  # lowerMiddleIndex
@@ -29,12 +29,12 @@ else:
     umi = lmi
 
 """For low-pass filter (LPF)"""
-if ff == "lpf":
+if ff == "hpf":
     fft[1:1+nCut] = np.zeros(nCut)
     fft[-nCut:] = np.zeros(nCut)  # symmetrical!
 
 """For high-pass filter (HPF)"""
-if ff == "hpf":
+if ff == "lpf":
     lowerLimit = lmi-nCut+1
     upperLimit = umi+nCut
     fft[lowerLimit:upperLimit] = np.zeros(upperLimit-lowerLimit)
