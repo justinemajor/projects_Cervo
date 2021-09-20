@@ -6,6 +6,7 @@ from sklearn.decomposition import PCA
 import numpy as np
 import matplotlib.pyplot as mpl
 
+
 # Read the data
 def listNameOfFiles(directory: str, extension="csv") -> list:
     foundFiles = []
