@@ -283,3 +283,7 @@ file = "paperBrain_x0_y0.csv"
 match = re.match("(paperBrain)[A-Za-z_.]*", file)
 if match:
     print("yay")
+
+
+matrix = np.random.randint(0, 10, (5, 3))
+print(matrix)

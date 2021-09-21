@@ -16,23 +16,22 @@ expectedPC = np.vstack((spec1, spec2, spec3, spec4, spec5, spec6, spec7))
 
 
 def setCombinations(nb_spectra):
-    spectra = [spec1, spec2, spec3, spec4, spec5, spec6, spec7]
-    for _ in range(nb_spectra):
-        # newSpec = np.zeros(15)
-        newSpec = np.random.randint(0, 10) * spec1
-        newSpec += np.random.randint(0, 10) * spec2
-        newSpec += np.random.randint(0, 10) * spec3
-        newSpec += np.random.randint(0, 10) * spec4
-        newSpec += np.random.randint(0, 10) * spec5
-        newSpec += np.random.randint(0, 10) * spec6
-        newSpec += np.random.randint(0, 10) * spec7
-        spectra.append(newSpec)
+    set = {}
+    coefs = np.random.randint(0, 10, (nb_spectra, 7))
+    combinations = coefs @ expectedPC
+    spectra = np.vstack((expectedPC, combinations))
+    spectra = list(spectra)
     for ind, el in enumerate(spectra):
         spectra[ind] = list(el)
-    return spectra
+    set['spectra'] = spectra
+    set['coefs'] = coefs
+    return set
 
 
-spectra = setCombinations(71)
+set = setCombinations(71)
+spectra = set['spectra']
+coefs = set['coefs']
+print(coefs)
 
 
 # Decomposition with PCA
