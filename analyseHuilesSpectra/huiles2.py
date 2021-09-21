@@ -10,10 +10,10 @@ from scipy import stats, interpolate
 pixel = [625, 882, 1134, 1149]
 nm = [671, 690, 708, 709]
 
-slope, intercept, r_value, p_value, std_err = stats.linregress(pixel, nm)
+slope, intercept, r_value, p_value, std_err = stats.linregress(pixel, nm)  # More or less efficient than curvefitting?
 print(f"a={slope:.5f}", f"b={intercept:.3f}", f"σ={std_err:.3e}")
 
-x_new = np.array(range(1339))
+x_new = np.array(range(1339))  # generalize with len of files/data?
 nm = x_new * slope + intercept
 
 cm = 1 / (632.8e-7) - 1 / (nm * 1e-7)
@@ -25,7 +25,7 @@ for file in data:
     soln = file.split("_")[2]
     df = pd.read_csv(file)
     y = df.iloc[:, 2]
-    y /= max(abs(y))
+    y /= max(abs(y))  # why abs? Necessary?
     plt.plot(nm, y, label=f"{soln}", linewidth=0.5)
 
 plt.xlabel("$\lambda$ [nm]")
