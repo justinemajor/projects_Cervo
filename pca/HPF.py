@@ -28,12 +28,12 @@ else:
     lmi = int(tot/2)
     umi = lmi
 
-"""For low-pass filter (LPF)"""
+"""For high-pass filter (HPF)"""
 if ff == "hpf":
     fft[1:1+nCut] = np.zeros(nCut)
     fft[-nCut:] = np.zeros(nCut)  # symmetrical!
 
-"""For high-pass filter (HPF)"""
+"""For low-pass filter (LPF)"""
 if ff == "lpf":
     lowerLimit = lmi-nCut+1
     upperLimit = umi+nCut

@@ -16,7 +16,7 @@ print(f"a={slope:.5f}", f"b={intercept:.3f}", f"σ={std_err:.3e}")
 x_new = np.array(range(1339))  # generalize with len of files/data?
 nm = x_new * slope + intercept
 
-cm = 1 / (632.8e-7) - 1 / (nm * 1e-7)
+cm = 1 / (632.8e-7) - 1 / (nm * 1e-7)  # Only used later... reorganise?
 
 data = glob.glob("*.TXT")
 
