@@ -255,7 +255,7 @@ print(new)
 nom = 'spectrum_x10_y3.csv'
 
 tik = time.perf_counter()
-matchObj = re.match("([A-Za-z_]*)_x(\\d+)_y(\\d+).*", nom)
+matchObj = re.match(r"([A-Za-z_]*)_x(\d+)_y(\d+).*", nom)
 if matchObj:
     val1 = str(matchObj.group(1))
     val2 = int(matchObj.group(2))
