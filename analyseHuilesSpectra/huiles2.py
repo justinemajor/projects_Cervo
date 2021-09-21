@@ -37,6 +37,7 @@ plt.clf()
 
 
 """Second step of the project"""
+# TODO not sure about this division, could use a better organisation and titles!
 
 
 for ind, file in enumerate(data):
