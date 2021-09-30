@@ -28,7 +28,7 @@ class PCBasis:  # TODO clarify and complete the class with every useful function
         return set
 
 
-# TODO add a little explination for the method at the beginning...
+# TODO add a little explanation for the method at the beginning...
 basis = PCBasis()
 set = basis.setCombinations(71)
 spectra = set['spectra']
