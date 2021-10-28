@@ -41,7 +41,7 @@ for nom in listNameOfFiles(path):
     el.append(yy)
 
 
-#imprimer les spectres
+# imprimer les spectres
 fig1, ax3 = mpl.subplots()
 ax3.plot(x, y["lumiamb_usb2000.txt"], '#e377c2', label="lumière ambiante")
 #ax3.plot(x, y["laser.txt"], '#17becf', label="laser")
