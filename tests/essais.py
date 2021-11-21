@@ -286,4 +286,4 @@ if match:
 
 
 matrix = np.random.randint(0, 10, (5, 3))
-print(matrix)
+# print(matrix)
